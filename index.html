@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Engine Demo</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        #particleSelector {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 100;
+        }
+
+        .particleType {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .particleType:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .particleType.selected {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .particleType.selected::before {
+            content: "→";
+            position: absolute;
+            left: 15px;
+        }
+
+        #sand {
+            background-color: #c2b280;
+        }
+
+        #water {
+            background-color: #4d80e6;
+        }
+
+        #fire {
+            background-color: #ff4500;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div id="particleSelector">
+        <div id="sand" class="particleType selected">Sand</div>
+        <div id="water" class="particleType">Water</div>
+        <div id="fire" class="particleType">Fire</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script type="module">
+        console.log('Script loading...');
+        import { ParticleEngine } from '/dist/particleEngine.js';
+
+        window.addEventListener('load', () => {
+            console.log('Window loaded');
+            const engine = new ParticleEngine('particleCanvas');
+            console.log('Particle engine initialized');
+
+            // Handle particle type selection
+            const types = document.querySelectorAll('.particleType');
+            types.forEach(type => {
+                type.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    types.forEach(t => t.classList.remove('selected'));
+                    type.classList.add('selected');
+                    engine.setParticleType(type.id);
+                    console.log('Selected particle type:', type.id);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

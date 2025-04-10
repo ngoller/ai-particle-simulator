@@ -1,0 +1,21 @@
+{
+    "name": "particle-engine",
+    "version": "1.0.0",
+    "description": "TypeScript Particle Engine",
+    "main": "dist/particleEngine.js",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "start": "http-server",
+        "dev": "concurrently \"npm run watch\" \"npm run start\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "http-server": "^14.1.1",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@types/matter-js": "^0.19.8",
+        "matter-js": "^0.20.0"
+    }
+}
